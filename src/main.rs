@@ -1,5 +1,6 @@
 use crate::reverse_words::reverse_words;
 mod reverse_words;
+mod two_sum;
 
 fn main() {
     println!("{}", reverse_words("the sky is blue".to_string()));
