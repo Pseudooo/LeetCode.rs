@@ -1,15 +1,32 @@
 
 pub fn two_sum(numbers: Vec<i32>, target: i32) -> Vec<i32> {
-    let mut result: Vec<i32> = vec![0; 2];
+    let mut sorted_numbers = numbers.clone();
+    sorted_numbers.sort();
+
+    let mut sorted_head_index = 0;
+    let mut sorted_tail_index = sorted_numbers.len() - 1;
+    let mut sorted_result = vec![];
+
+    loop {
+        let sum = sorted_numbers[sorted_head_index] + sorted_numbers[sorted_tail_index];
+
+        if sum > target {
+            sorted_tail_index -= 1;
+        } else if sum < target {
+            sorted_head_index += 1;
+        } else {
+            sorted_result.push(sorted_head_index as i32);
+            sorted_result.push(sorted_tail_index as i32);
+            break;
+        }
+    }
+
+    let mut result = vec![];
     for i in 0..numbers.len() {
-        for j in 0..numbers.len() {
-            if i == j {
-                continue;
-            } else if (numbers[i] + numbers[j]) == target {
-                result[0] = j as i32;
-                result[1] = i as i32;
-                break;
-            }
+        if numbers[i] == sorted_numbers[sorted_head_index] {
+            result.push(i as i32);
+        } else if numbers[i] == sorted_numbers[sorted_tail_index] {
+            result.push(i as i32);
         }
     }
 
@@ -17,7 +34,7 @@ pub fn two_sum(numbers: Vec<i32>, target: i32) -> Vec<i32> {
 }
 
 #[cfg(test)]
-mod reverse_words_tests {
+mod two_sum_tests {
     use crate::two_sum::two_sum;
 
     #[test]
