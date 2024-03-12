@@ -2,6 +2,7 @@ use crate::two_sum::two_sum;
 
 mod reverse_words;
 mod two_sum;
+mod add_two_numbers;
 
 fn main() {
     let numbers = [3,2,4].iter().cloned().collect();
