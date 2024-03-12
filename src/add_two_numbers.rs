@@ -84,4 +84,54 @@ impl ListNode {
   }
 }
 
+#[cfg(test)]
+mod add_two_numbers_tests {
+    use crate::add_two_numbers::add_two_numbers;
+    use crate::add_two_numbers::ListNode;
 
+    #[test]
+    fn example1() {
+        let l1 = test_create_ll(vec!(2, 4, 3));
+        let l2 = test_create_ll(vec!(5, 6, 4));
+        let expected = test_create_ll(vec!(7, 0, 8));
+
+        let result = add_two_numbers(l1, l2);
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn example2() {
+        let l1 = test_create_ll(vec!(0));
+        let l2 = test_create_ll(vec!(0));
+        let expected = test_create_ll(vec!(0));
+
+        let result = add_two_numbers(l1, l2);
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn example3() {
+        let l1 = test_create_ll(vec!(9,9,9,9,9,9,9));
+        let l2 = test_create_ll(vec!(9,9,9,9));
+        let expected = test_create_ll(vec!(8,9,9,9,0,0,0,1));
+
+        let result = add_two_numbers(l1, l2);
+        assert_eq!(result, expected);
+    }
+
+    fn test_create_ll(numbers: Vec<i32>) -> Option<Box<ListNode>> {
+        if numbers.is_empty() {
+            return None;
+        }
+
+        let mut head = Box::new(ListNode::new(numbers[0]));
+        let mut current = head.as_mut();
+        for number in &numbers[1..] {
+            let node = Box::new(ListNode::new(*number));
+            current.next = Some(node);
+            current = current.next.as_mut().unwrap();
+        }
+
+        return Some(head);
+    }
+}
